@@ -1,6 +1,10 @@
 import * as fs from 'fs';
 
 export function readNumbersFromInputFile(filename: string) {
+    return readLinesFromInputFile(filename).map(s => parseInt(s))
+}
+
+export function readLinesFromInputFile(filename: string) {
     const content = fs.readFileSync(filename, 'utf-8')
-    return content.split('\n').filter(s => s.trim().length > 0).map(s => parseInt(s))
+    return content.split('\n').filter(s => s.trim().length > 0)
 }

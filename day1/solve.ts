@@ -1,4 +1,4 @@
-import {readNumbersFromInputFile} from './utils';
+import {readNumbersFromInputFile} from '../utils';
 
 
 function findNumbersFrom(numbers: number[], expectedSum: number, numbersCount: number, startIndex: number) {
@@ -40,15 +40,15 @@ function solveDay1(filename: string, numbersCount: number) {
     return multiplicateAll(resultNumbers)
 }
 
-export function solveDay1Part1(filename: string): number {
+export function solvePart1(filename: string): number {
     return solveDay1(filename, 2);
 }
 
-export function solveDay1Part2(filename: string): number {
+export function solvePart2(filename: string): number {
     return solveDay1(filename, 3);
 }
 
 if (require.main === module) {
-    console.log("Day1 - Part 1 : answer is : " + solveDay1Part1('data/day1.mydata'))
-    console.log("Day1 - Part 2 : answer is : " + solveDay1Part2('data/day1.mydata'))
+    console.log("Day1 - Part 1 : answer is : " + solvePart1('day1/data/mydata'))
+    console.log("Day1 - Part 2 : answer is : " + solvePart2('day1/data/mydata'))
 }

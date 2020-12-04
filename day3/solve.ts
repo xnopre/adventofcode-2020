@@ -31,6 +31,6 @@ export function solvePart2(filename: string): number {
 }
 
 if (require.main === module) {
-    console.log("Day2 - Part 1 : answer is : " + solvePart1('day3/data/mydata'))
-    console.log("Day2 - Part 2 : answer is : " + solvePart2('day3/data/mydata'))
+    console.log("Day3 - Part 1 : answer is : " + solvePart1('day3/data/mydata'))
+    console.log("Day3 - Part 2 : answer is : " + solvePart2('day3/data/mydata'))
 }

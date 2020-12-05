@@ -6,7 +6,7 @@ describe("My solver", () => {
     expect(solvePart2("day4/data/sample.invalid")).toEqual(0);
     expect(solvePart2("day4/data/sample.valid")).toEqual(4);
 
-    // With my real data
+    // With my real data and my solution
     expect(solvePart1("day4/data/mydata")).toEqual(228);
     expect(solvePart2("day4/data/mydata")).toEqual(175);
   });

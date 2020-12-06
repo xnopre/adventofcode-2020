@@ -9,7 +9,8 @@
     "run-day2": "ts-node day2/solve.ts",
     "run-day3": "ts-node day3/solve.ts",
     "run-day4": "ts-node day4/solve.ts",
-    "run-day5": "ts-node day5/solve.ts"
+    "run-day5": "ts-node day5/solve.ts",
+    "run-day6": "ts-node day6/solve.ts"
   },
   "repository": {
     "type": "git",

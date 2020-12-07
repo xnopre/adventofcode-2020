@@ -10,7 +10,8 @@
     "run-day3": "ts-node day3/solve.ts",
     "run-day4": "ts-node day4/solve.ts",
     "run-day5": "ts-node day5/solve.ts",
-    "run-day6": "ts-node day6/solve.ts"
+    "run-day6": "ts-node day6/solve.ts",
+    "run-day7": "ts-node day7/solve.ts"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,11 @@
   },
   "homepage": "https://github.com/xnopre/adventofcode-2020#readme",
   "dependencies": {
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-typescript": "^7.12.7",
     "@types/jest": "^26.0.16",
     "jest": "^26.6.3",
     "node-ts": "^5.1.1",
     "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   }

@@ -4,9 +4,14 @@ export function readNumbersFromInputFile(filename: string) {
   return readLinesFromInputFile(filename).map((s) => parseInt(s));
 }
 
-export function readLinesFromInputFile(filename: string) {
+export function readLinesFromInputFile(
+  filename: string,
+  filterEmptyLines = true
+) {
   const content = fs.readFileSync(filename, "utf-8");
-  return content.split("\n").filter((s) => s.trim().length > 0);
+  let lines = content.split("\n");
+  if (filterEmptyLines) lines = lines.filter((s) => s.trim().length > 0);
+  return lines;
 }
 
 export function clone<T>(obj: T): T {

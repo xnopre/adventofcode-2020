@@ -1,0 +1,206 @@
+0 bbabbbbaabaabba
+8 11
+	8*
+	    bbabbbbaabaabba
+		42*
+		    bbabbbbaabaabba
+			9*
+				14*
+					b : babbbbaabaabba
+				27*
+					1
+						a KO
+					6
+					-
+					14*
+						b : abbbbaabaabba
+					18* (abbbbaabaabba)
+						15*
+						    abbbbaabaabba
+							1*
+							    a: bbbbaabaabba
+							-
+							abbbbaabaabba
+							14
+						15* (bbbbaabaabba)
+						    bbbbaabaabba
+						    1
+						        a : KO
+						    -
+						    bbbbaabaabba
+						    14*
+						        b : bbbaabaabba
+				-
+				1
+				26
+			14* (bbbaabaabba)
+			    b* : bbaabaabba
+			-
+			10
+			    23
+			        25
+			            1
+			            1
+			            -
+			            1
+			            14
+			        1
+			        -
+			        22
+			            14
+			            14
+			        14
+			    14
+			    -
+			    28
+			        16
+			            15
+			                1
+			                -
+			                14
+			            1
+			            -
+			            14
+			            14
+			        1
+			    1
+			1
+		-
+		42 --> bbaabaabba
+		    9
+		        14
+		        27
+		            1
+		            6
+		            -
+		            14
+		            18
+		                15
+		                15
+		        -
+		        1
+		        26
+		    14
+		    -
+		    10
+		        23
+		            25
+		                1
+		                1
+		                -
+		                1
+		                14
+		            1
+		            -
+		            22
+		                14
+		                14
+		            14
+		        14
+		        -
+		        28
+		            16
+		                15
+		                    1
+		                    -
+		                    14
+		                1
+		                -
+		                14
+		                14
+		            1
+		        1
+		    1
+		8
+
+	11* (bbaabaabba)
+	    bbaabaabba
+	    42*
+	        bbaabaabba
+	        9
+	            bbaabaabba
+	            14
+	                b : baabaabba
+	            27 (baabaabba)
+	                baabaabba
+	                1
+	                    a : KO
+	                6
+	                -
+	                baabaabba
+	                14
+	                    b : aabaabba
+	                18 (aabaabba)
+	                    aabaabba
+	                    15
+	                        aabaabba
+	                        1
+	                            a : abaabba
+	                        -
+	                        aabaabba
+	                        14
+	                    15 (abaabba)
+	                        abaabba
+	                        1
+	                            a : baabba *
+	                        -
+	                        abaabba
+	                        14
+	            -
+	            bbaabaabba
+	            1
+	            26
+	        14 (baabba)
+	            b aabba
+	        -
+	        bbaabaabba
+	        10
+	        1
+	    31* (aabba)
+	        aabba
+	        14
+	            b : KO
+	        17
+	        -
+	        aabba
+	        1*
+	            a : abba
+	        13* (abba)
+	            abba
+	            14
+	                b : KO
+	            3
+	            -
+	            abba
+	            1*
+	                a : bba
+	            12* (bba)
+	                bba
+	                24
+	                    bba
+	                    14
+	                        b : ba
+	                    1
+	                        a : KO
+	                14
+	                -
+	                bba
+	                19*
+	                    bba
+	                    14
+	                        b : ba
+	                    1 (ba)
+	                        a : KO
+	                    -
+	                    bba
+	                    14
+	                        b : ba
+	                    14 (ba)
+	                        b : a
+	                1* (a)
+	                    a --> OK
+	    -
+	    bbaabaabba
+	    42
+	    11
+	    31

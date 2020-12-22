@@ -24,7 +24,8 @@
     "run-day17": "ts-node day17/solve.ts",
     "run-day18": "ts-node day18/solve.ts",
     "run-day19": "ts-node day19/solve.ts",
-    "run-day20": "ts-node day20/solve.ts"
+    "run-day20": "ts-node day20/solve.ts",
+    "run-day21": "ts-node day21/solve.ts"
   },
   "repository": {
     "type": "git",

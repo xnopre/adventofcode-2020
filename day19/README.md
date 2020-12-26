@@ -151,8 +151,12 @@ aabbbbbaabbbaaaaaabbbbbababaaaaabbaaabba
 
 After updating rules 8 and 11, how many messages completely match rule 0?
 
-Answer:
+Your puzzle answer was 407.
 
-Although it hasn't changed, you can still get your puzzle input.
+Both parts of this puzzle are complete! They provide two gold stars: \*\*
+
+At this point, you should return to your Advent calendar and try another puzzle.
+
+If you still want to see it, you can get your puzzle input.
 
 You can also [Share] this puzzle.

@@ -17,3 +17,10 @@ export function readLinesFromInputFile(
 export function clone<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj));
 }
+
+export function flat(arr: string[][]): string[] {
+  return arr.reduce((acc, v) => {
+    acc.push(...v);
+    return acc;
+  }, []);
+}

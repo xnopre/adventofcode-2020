@@ -1,21 +1,6 @@
-import { readLinesFromInputFile } from "../utils";
+import { flat, readLinesFromInputFile } from "../utils";
 
-function readData(filename: string) {
-  const lines = readLinesFromInputFile(filename, false);
-  const index = lines.findIndex((line) => line.trim().length === 0);
-  const rulesStr = lines.slice(0, index);
-  const messages = lines.slice(index + 1).filter((s) => s.trim().length > 0);
-  return { rulesStr, messages };
-}
-
-interface Rule {
-  letter?: string;
-  rules?: number[][];
-}
-
-export interface RulesDict {
-  [index: number]: Rule;
-}
+// Lecture et convertion des fichiers d'entrée
 
 function convertRule(s: string): Rule {
   s = s.trim();
@@ -35,7 +20,7 @@ function convertRule(s: string): Rule {
 }
 
 function convertRules(lines: string[]) {
-  const rules: RulesDict = {};
+  const rules: Rules = {};
   for (let i = 0; i < lines.length; i++) {
     const [indexStr, rule] = lines[i].split(": ");
     const index = parseInt(indexStr);
@@ -44,53 +29,115 @@ function convertRules(lines: string[]) {
   return rules;
 }
 
-function isMessageValidForRule(
-  message: string,
-  rules: RulesDict,
-  index: number
-): string | undefined {
-  const rule = rules[index];
-  if (rule.letter) {
-    if (message.startsWith(rule.letter)) {
-      return message.substr(1);
-    }
-    return undefined;
-  }
-  for (
-    let sequenceIndex = 0;
-    sequenceIndex < rule.rules.length;
-    sequenceIndex++
-  ) {
-    const rulesSequence = rule.rules[sequenceIndex];
-    let restMessage = message;
-    let valid = true;
-    for (let j = 0; valid && j < rulesSequence.length; j++) {
-      let index = rulesSequence[j];
-      restMessage = isMessageValidForRule(restMessage, rules, index);
-      if (restMessage === undefined) {
-        valid = false;
-        break;
-      }
-    }
-    if (valid) {
-      // console.log(`${message} / ${JSON.stringify(rule)} --> ${restMessage}`);
-      return restMessage;
-    }
-  }
+function readRulesAndMessages(
+  filename: string
+): { rules: Rules; messages: string[] } {
+  const lines = readLinesFromInputFile(filename, false);
+  const index = lines.findIndex((line) => line.trim().length === 0);
+  const rulesStr = lines.slice(0, index);
+  const messages = lines.slice(index + 1).filter((s) => s.trim().length > 0);
+  return { rules: convertRules(rulesStr), messages };
+}
 
-  // console.log(`${message} / ${JSON.stringify(rule)} --> undefined`);
+// Implémentation solution
+
+type RulesNumbersSequence = number[];
+
+interface Rule {
+  letter?: string;
+  rules?: RulesNumbersSequence[];
+}
+
+export interface Rules {
+  [index: number]: Rule;
+}
+
+/**
+ * @param message Message à valider
+ * @param rulesSequence Séquence de règles. Ex : [4] ou [4, 1]
+ * @param rules Dictionnaire de toutes les règles
+ * @return Les différents restes de messages pour les règles qui ont pu être appliquées, sinon undefined
+ */
+function applyOneRulesSequence(
+  message: string,
+  rulesSequence: RulesNumbersSequence, //
+  rules: Rules
+): string[] | undefined {
+  let restMessages = [message];
+  for (const ruleNumber of rulesSequence) {
+    restMessages = flat(
+      restMessages
+        .map((restMessage) => applyRule(restMessage, rules, ruleNumber))
+        .filter((restMessages) => restMessages != undefined)
+    );
+    if (restMessages === undefined) {
+      return undefined;
+    }
+  }
+  return restMessages;
+}
+
+/**
+ * @param message Message à valider
+ * @param rule Règle à appliquer
+ * @return Reste de message si la règle a pu être appliquée, sinon undefined
+ */
+function applyRuleLetter(message: string, rule: Rule) {
+  if (message.startsWith(rule.letter)) {
+    return [message.substr(1)];
+  }
   return undefined;
 }
 
-export function isMessageValid(message: string, rules: RulesDict) {
-  const rest = isMessageValidForRule(message, rules, 0);
-  return rest === "";
+/**
+ * @param sequences Plusieurs séquences à appliquer sur un message
+ * @param message Message à valider
+ * @param rules Dictionnaire de toutes les règles
+ * @return Les différents restes de messages pour les séquences qui ont pu être appliquées, sinon undefined
+ */
+function applyRulesSequence(
+  sequences: RulesNumbersSequence[], // ex : [[4], [4, 1]]
+  message: string,
+  rules: Rules
+) {
+  const restMessages = [];
+  for (
+    let sequenceIndex = 0;
+    sequenceIndex < sequences.length;
+    sequenceIndex++
+  ) {
+    const rulesSequence = sequences[sequenceIndex];
+    const restMessage = applyOneRulesSequence(message, rulesSequence, rules);
+    if (restMessage) {
+      restMessages.push(...restMessage);
+    }
+  }
+  return restMessages.length > 0 ? restMessages : undefined;
 }
 
-export function solvePart1(filename: string): number {
-  const { rulesStr, messages } = readData(filename);
-  const rules = convertRules(rulesStr);
-  // console.log("rules=", JSON.stringify(rules, null, 2));
+function applyRule(
+  message: string,
+  rules: Rules,
+  ruleNumber: number
+): string[] | undefined {
+  const rule = rules[ruleNumber];
+  if (rule.letter) {
+    return applyRuleLetter(message, rule);
+  }
+  return applyRulesSequence(rule.rules, message, rules);
+}
+
+function isValidIfAtLeastOneMessageIsEmpty(restMessages: string[]) {
+  return restMessages !== undefined && restMessages.indexOf("") >= 0;
+}
+
+export function isMessageValid(message: string, rules: Rules): boolean {
+  const restMessages = applyRule(message, rules, 0);
+  return isValidIfAtLeastOneMessageIsEmpty(restMessages);
+}
+
+export function solve(filename: string): number {
+  const { rules, messages } = readRulesAndMessages(filename);
   const validMessages = messages.filter((message) =>
     isMessageValid(message, rules)
   );
@@ -98,10 +145,8 @@ export function solvePart1(filename: string): number {
 }
 
 if (require.main === module) {
+  console.log("Day19 - Part 1 : answer is : " + solve("day19/data/mydata"));
   console.log(
-    "Day19 - Part 1 : answer is : " + solvePart1("day19/data/mydata")
-  );
-  console.log(
-    "Day19 - Part 2 : answer is : " + solvePart1("day19/data/mydata.part2")
+    "Day19 - Part 2 : answer is : " + solve("day19/data/mydata.part2")
   );
 }

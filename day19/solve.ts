@@ -52,74 +52,69 @@ export interface Rules {
   [index: number]: Rule;
 }
 
-/**
- * @param message Message à valider
- * @param rulesSequence Séquence de règles. Ex : [4] ou [4, 1]
- * @param rules Dictionnaire de toutes les règles
- * @return Les différents restes de messages pour les règles qui ont pu être appliquées, sinon undefined
- */
+type ApplyResult =
+  | { applicable: false }
+  | { applicable: true; restOfMessages: string[] };
+
+const NOT_APPLICABLE: ApplyResult = { applicable: false };
+
 function applyOneRulesSequence(
   message: string,
   rulesSequence: RulesNumbersSequence, //
   rules: Rules
-): string[] | undefined {
-  let restMessages = [message];
+): ApplyResult {
+  let restOfMessages = [message];
   for (const ruleNumber of rulesSequence) {
-    restMessages = flat(
-      restMessages
+    restOfMessages = flat(
+      restOfMessages
         .map((restMessage) => applyRule(restMessage, rules, ruleNumber))
-        .filter((restMessages) => restMessages != undefined)
+        .map((appliedResult) =>
+          appliedResult.applicable ? appliedResult.restOfMessages : []
+        )
     );
-    if (restMessages === undefined) {
-      return undefined;
+    if (restOfMessages.length === 0) {
+      return NOT_APPLICABLE;
     }
   }
-  return restMessages;
+  return {
+    applicable: true,
+    restOfMessages,
+  };
 }
 
-/**
- * @param message Message à valider
- * @param rule Règle à appliquer
- * @return Reste de message si la règle a pu être appliquée, sinon undefined
- */
-function applyRuleLetter(message: string, rule: Rule) {
+function applyRuleLetter(message: string, rule: Rule): ApplyResult {
   if (message.startsWith(rule.letter)) {
-    return [message.substr(1)];
+    const restOfMessage = message.substr(1);
+    return {
+      applicable: true,
+      restOfMessages: [restOfMessage],
+    };
   }
-  return undefined;
+  return NOT_APPLICABLE;
 }
 
-/**
- * @param sequences Plusieurs séquences à appliquer sur un message
- * @param message Message à valider
- * @param rules Dictionnaire de toutes les règles
- * @return Les différents restes de messages pour les séquences qui ont pu être appliquées, sinon undefined
- */
 function applyRulesSequence(
   sequences: RulesNumbersSequence[], // ex : [[4], [4, 1]]
   message: string,
   rules: Rules
-) {
-  const restMessages = [];
-  for (
-    let sequenceIndex = 0;
-    sequenceIndex < sequences.length;
-    sequenceIndex++
-  ) {
-    const rulesSequence = sequences[sequenceIndex];
-    const restMessage = applyOneRulesSequence(message, rulesSequence, rules);
-    if (restMessage) {
-      restMessages.push(...restMessage);
+): ApplyResult {
+  const restOfMessages = [];
+  for (const rulesSequence of sequences) {
+    const appliedResult = applyOneRulesSequence(message, rulesSequence, rules);
+    if (appliedResult.applicable) {
+      restOfMessages.push(...appliedResult.restOfMessages);
     }
   }
-  return restMessages.length > 0 ? restMessages : undefined;
+  return restOfMessages.length > 0
+    ? { applicable: true, restOfMessages }
+    : NOT_APPLICABLE;
 }
 
 function applyRule(
   message: string,
   rules: Rules,
   ruleNumber: number
-): string[] | undefined {
+): ApplyResult {
   const rule = rules[ruleNumber];
   if (rule.letter) {
     return applyRuleLetter(message, rule);
@@ -128,12 +123,14 @@ function applyRule(
 }
 
 function isValidIfAtLeastOneMessageIsEmpty(restMessages: string[]) {
-  return restMessages !== undefined && restMessages.indexOf("") >= 0;
+  return restMessages.indexOf("") >= 0;
 }
 
 export function isMessageValid(message: string, rules: Rules): boolean {
-  const restMessages = applyRule(message, rules, 0);
-  return isValidIfAtLeastOneMessageIsEmpty(restMessages);
+  const appliedResult = applyRule(message, rules, 0);
+  return appliedResult.applicable
+    ? isValidIfAtLeastOneMessageIsEmpty(appliedResult.restOfMessages)
+    : false;
 }
 
 export function solve(filename: string): number {

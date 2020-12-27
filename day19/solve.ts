@@ -65,13 +65,11 @@ function applyOneRulesSequence(
 ): ApplyResult {
   let restOfMessages = [message];
   for (const ruleNumber of rulesSequence) {
-    restOfMessages = flat(
-      restOfMessages
-        .map((restMessage) => applyRule(restMessage, rules, ruleNumber))
-        .map((appliedResult) =>
-          appliedResult.applicable ? appliedResult.restOfMessages : []
-        )
-    );
+    restOfMessages = restOfMessages
+      .map((restMessage) => applyRule(restMessage, rules, ruleNumber))
+      .flatMap((appliedResult) =>
+        appliedResult.applicable ? appliedResult.restOfMessages : []
+      );
     if (restOfMessages.length === 0) {
       return NOT_APPLICABLE;
     }

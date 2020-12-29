@@ -41,7 +41,7 @@ export function doMoves(
   return cups;
 }
 
-export function labelsAfter1(cups: number[]) {
+export function labelsAfter1(cups: number[]): string {
   const cupsStr = cups.map((n) => n.toString()).join("");
   const indexOf1 = cupsStr.indexOf("1");
   return cupsStr.substr(indexOf1 + 1) + cupsStr.substr(0, indexOf1);
@@ -63,9 +63,7 @@ export function solvePart2(filename: string): number {
   const cupsAfter100Moves = doMoves(cups, 10000000, min, 1000000);
   const indexOf1 = cupsAfter100Moves.indexOf(1);
   const v1 = cupsAfter100Moves[indexOf1 + 1];
-  console.log({ v1 });
   const v2 = cupsAfter100Moves[indexOf1 + 2];
-  console.log({ v2 });
   return v1 * v2;
 }
 

@@ -4,7 +4,6 @@ import {
   labelsAfter1,
   move,
   solvePart1,
-  solvePart2,
 } from "./solve";
 
 describe("My solver", () => {

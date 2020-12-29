@@ -27,7 +27,7 @@
     "run-day20": "ts-node day20/solve.ts",
     "run-day21": "ts-node day21/solve.ts",
     "run-day22": "ts-node day22/solve.ts",
-    "run-day23": "ts-node day23/solve.ts",
+    "run-day23": "ts-node day23/solve2.ts",
     "run-day24": "ts-node day24/solve.ts",
     "run-day25": "ts-node day25/solve.ts"
   },

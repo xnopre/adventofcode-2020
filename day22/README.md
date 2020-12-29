@@ -421,8 +421,12 @@ rules as regular Combat. In the above game, the winning player's score is 291.
 Defend your honor as Raft Captain by playing the small crab in a game of Recursive Combat using the same two decks as
 before. What is the winning player's score?
 
-Answer:
+Your puzzle answer was 32751.
 
-Although it hasn't changed, you can still get your puzzle input.
+Both parts of this puzzle are complete! They provide two gold stars: \*\*
+
+At this point, you should return to your Advent calendar and try another puzzle.
+
+If you still want to see it, you can get your puzzle input.
 
 You can also [Share] this puzzle.

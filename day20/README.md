@@ -296,8 +296,12 @@ monster. In the above example, the habitat's water roughness is 273.
 
 How many # are not part of a sea monster?
 
-Answer:
+Your puzzle answer was 2323.
 
-Although it hasn't changed, you can still get your puzzle input.
+Both parts of this puzzle are complete! They provide two gold stars: \*\*
+
+At this point, you should return to your Advent calendar and try another puzzle.
+
+If you still want to see it, you can get your puzzle input.
 
 You can also [Share] this puzzle.
